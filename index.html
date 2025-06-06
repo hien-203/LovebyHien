@@ -1,109 +1,116 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LoveByHien</title>
-  <link rel="icon" href="https://emoji.slack-edge.com/T01ABCD1234/heart/12345678.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dear Love</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'Comic Sans MS', cursive;
-      background: pink;
+      font-family: 'Quicksand', sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #fff0f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
       overflow: hidden;
     }
 
-    .container {
+    h1 {
+      font-size: 2.5rem;
+      color: #d63384;
       text-align: center;
-      margin-top: 15%;
-      padding: 20px;
+      margin-bottom: 1.5rem;
     }
 
-    .title {
-      font-size: 40px;
-      color: hotpink;
-      text-shadow: 2px 2px white;
+    .button-wrapper {
+      display: flex;
+      gap: 2rem;
     }
 
-    .desc {
-      font-size: 20px;
-      margin-bottom: 20px;
-    }
-
-    input {
-      padding: 10px;
-      font-size: 16px;
-      width: 250px;
-      border-radius: 8px;
+    .btn {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
       border: none;
-    }
-
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: deeppink;
-      color: white;
-      border: none;
-      border-radius: 8px;
+      border-radius: 30px;
       cursor: pointer;
-      margin-left: 10px;
+      transition: all 0.3s ease;
+      font-weight: bold;
     }
 
-    .result {
-      margin-top: 20px;
-      font-size: 24px;
-      color: red;
-      animation: fade 1s ease-in-out;
+    .btn.yes {
+      background-color: #28a745;
+      color: white;
     }
 
-    @keyframes fade {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .btn.no {
+      background-color: #dc3545;
+      color: white;
+      position: relative;
+    }
+
+    .heart {
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      animation: heartbeat 1s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: translateX(-50%) scale(1);
+      }
+      50% {
+        transform: translateX(-50%) scale(1.2);
+      }
     }
   </style>
 </head>
 <body>
-  <audio autoplay loop>
-    <source src="https://www.chosic.com/wp-content/uploads/2021/12/Sweet-Emotional-Romantic.mp3" type="audio/mpeg" />
-  </audio>
+  <h1>Do you love me? 🥺</h1>
 
-  <div class="container">
-    <h1 class="title">💖 LoveByHien 💖</h1>
-    <p class="desc">Nhập tên người ấy để xem độ hợp đôi của 2 đứa 😘</p>
-    
-    <input type="text" id="nameInput" placeholder="Nhập tên người ấy..." />
-    <button onclick="checkLove()">Xem kết quả</button>
-
-    <div id="result" class="result"></div>
+  <div class="button-wrapper">
+    <button class="btn yes" onclick="yesClick()">Yes</button>
+    <button class="btn no" id="noBtn">No</button>
   </div>
 
+  <audio autoplay loop>
+    <source src="https://github.com/thanghust2001/dearlove/raw/main/src/assets/music.mp3" type="audio/mp3">
+  </audio>
+
   <script>
-    function checkLove() {
-      const input = document.getElementById("nameInput").value.trim().toLowerCase();
-      const result = document.getElementById("result");
+    const noBtn = document.getElementById('noBtn');
+    let count = 0;
 
-      if (!input) {
-        result.innerText = "Nhập tên đi chớ 😒";
-        return;
+    noBtn.addEventListener('mouseenter', () => {
+      const i = Math.floor(Math.random() * (window.innerWidth - 100));
+      const j = Math.floor(Math.random() * (window.innerHeight - 50));
+      noBtn.style.position = 'absolute';
+      noBtn.style.left = i + 'px';
+      noBtn.style.top = j + 'px';
+      count++;
+      if (count >= 5) {
+        noBtn.innerText = "Stop 😭";
       }
+    });
 
-      if (input.includes("thu hiền") || input.includes("nguyễn thị thu hiền")) {
-        result.innerText = "🌹 Bạn với Thu Hiền là định mệnh rồi đó, cưới lẹ đi 🌹";
-        return;
-      }
-
-      const messages = [
-        "Hợp nhau 100%, cưới lẹ lẹ ❤️",
-        "Đôi này yêu nhau là hết nước chấm 💯",
-        "Hơi khác nhau tí nhưng bù trừ là đẹp 🥰",
-        "Không hợp mấy... mà tình yêu mà, cố lên 😅",
-        "Trời ơi, sinh ra là để dành cho nhau luôn 😍",
-        "Vũ trụ đang đẩy thuyền tụi bây đó 🚢"
-      ];
-
-      const randomIndex = Math.floor(Math.random() * messages.length);
-      result.innerText = messages[randomIndex];
+    function yesClick() {
+      document.body.innerHTML = `
+        <h1>Yayyy! I love you too ❤️</h1>
+        <div class="heart">💖</div>
+        <audio autoplay loop>
+          <source src="https://github.com/thanghust2001/dearlove/raw/main/src/assets/music.mp3" type="audio/mp3">
+        </audio>
+      `;
     }
   </script>
 </body>
